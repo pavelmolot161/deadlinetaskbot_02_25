@@ -1,3 +1,4 @@
+
 ### - 04.02.25
 ### - 05.02.25
 ### - 06.02.25
@@ -12,6 +13,10 @@ import logging  # Импорт для логирования
 from datetime import datetime  # Импорт для работы с датами и временем
 import time  # Импорт для работы со временем
 
+import os  # Импорт для работы с файловой системой
+
+
+
 # Настройка логирования
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -21,6 +26,16 @@ bot = telebot.TeleBot('7261984695:AAEFzfQ-89_P5CSq9KJiABf49WLxEFw4o34')
 # Инициализация Flask приложения
 app = Flask(__name__)
 swagger = Swagger(app)  # Инициализация Swagger для документации API
+
+# Определение маршрута для Swagger UI
+@app.route('/swagger', methods=['GET'])
+def swagger_ui():
+    return app.send_static_file('index.html')  # Возвращаем HTML-страницу Swagger UI
+
+# Определение маршрута для swagger.yaml
+@app.route('/swagger.yaml', methods=['GET'])
+def swagger_yaml():
+    return app.send_static_file('swagger.yaml')  # Возвращаем файл спецификации
 
 # Множество для хранения уникальных пользователей
 unique_users = set()
@@ -66,8 +81,8 @@ def send_welcome(message):
 def show_buttons(chat_id):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)  # Создаем разметку для кнопок
     button1 = types.KeyboardButton("Резюме Павла Л.")  # Кнопка для резюме
-    button2 = types.KeyboardButton("Кнопка (2)")  # Вторая кнопка
-    button3 = types.KeyboardButton("Кнопка (3)")  # Третья кнопка
+    button2 = types.KeyboardButton("Кнопка [2]")  # Вторая кнопка
+    button3 = types.KeyboardButton("Кнопка [3]")  # Третья кнопка
     markup.add(button1, button2, button3)  # Добавляем кнопки в разметку
     bot.send_message(chat_id, "Выберите кнопку:", reply_markup=markup)  # Отправляем сообщение с кнопками
 
@@ -109,6 +124,10 @@ def report_user_count():
             logging.info(f"Количество уникальных пользователей за {last_reported_date}: {len(unique_users)}")  # Логируем количество пользователей
             unique_users.clear()  # Очищаем множество для следующего дня
         time.sleep(3600)  # Проверяем каждый час
+
+# Функция для запуска Flask-приложения
+def run_flask():
+    app.run(host='0.0.0.0', port=5000)  # Запускаем Flask на всех интерфейсах
 
 # Главная точка входа программы
 if __name__ == "__main__":
