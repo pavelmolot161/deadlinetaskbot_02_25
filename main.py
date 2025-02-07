@@ -27,6 +27,23 @@ bot = telebot.TeleBot('7261984695:AAEFzfQ-89_P5CSq9KJiABf49WLxEFw4o34')
 app = Flask(__name__)
 swagger = Swagger(app)  # Инициализация Swagger для документации API
 
+@app.route('/start', methods=['GET'])
+def start():
+    """Start endpoint
+    ---
+    responses:
+      200:
+        description: Приветствие
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+    """
+    return {"message": "Добро пожаловать в API бота deadlinetaskbot!"}
+
 # Определение маршрута для Swagger UI
 @app.route('/swagger', methods=['GET'])
 def swagger_ui():
