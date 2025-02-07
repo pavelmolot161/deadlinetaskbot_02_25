@@ -93,7 +93,7 @@ def handle_message(message):
     user_id = message.from_user.id  # Получаем ID пользователя
 
     try:
-        if message.text == "Резюме Павла Л.":  # Проверяем, нажал ли пользователь на кнопку резюме
+        if message.text == "Резюме на Павла Л.":  # Проверяем, нажал ли пользователь на кнопку резюме
             logging.info(f"Пользователь {user_first_name} (ID: {user_id}) запросил резюме.")  # Логируем запрос резюме
             bot.send_message(message.chat.id,
                              "Вот Ваше резюме: https://docs.google.com/document/d/1H6FX_7SnMH5eeiCXuNOfFX241o4beCyXLdIZZbkYzD8/edit?usp=sharing")  # Отправляем ссылку на резюме
@@ -126,8 +126,8 @@ def report_user_count():
         time.sleep(3600)  # Проверяем каждый час
 
 # Функция для запуска Flask-приложения
-def run_flask():
-    app.run(host='0.0.0.0', port=5000)  # Запускаем Flask на всех интерфейсах
+# def run_flask():
+#     app.run(host='0.0.0.0', port=5000)  # Запускаем Flask на всех интерфейсах
 
 # Главная точка входа программы
 if __name__ == "__main__":
