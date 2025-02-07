@@ -80,7 +80,7 @@ def send_welcome(message):
 # Функция для отображения кнопок
 def show_buttons(chat_id):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)  # Создаем разметку для кнопок
-    button1 = types.KeyboardButton("Резюме Павла Л.")  # Кнопка для резюме
+    button1 = types.KeyboardButton("Резюме на Павла Л.")  # Кнопка для резюме
     button2 = types.KeyboardButton("Кнопка [2]")  # Вторая кнопка
     button3 = types.KeyboardButton("Кнопка [3]")  # Третья кнопка
     markup.add(button1, button2, button3)  # Добавляем кнопки в разметку
